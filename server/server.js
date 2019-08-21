@@ -25,10 +25,10 @@ connection.once('open', () => {
 
 //require routes
 const userRouter = require('./routes/user.router');
-const exerciseRouter = require('./routes/exercise.router');
+// const exerciseRouter = require('./routes/exercise.router');
 
 app.use('/user', userRouter);
-app.use('/exercise', exerciseRouter);
+// app.use('/exercise', exerciseRouter);
 
 
 app.listen(port, () => {
