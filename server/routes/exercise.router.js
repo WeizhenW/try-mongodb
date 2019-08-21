@@ -30,5 +30,33 @@ router.post('/add', (req, res) => {
         .catch(error => res.status(400).json('error with adding exercise: ' + error))
 });
 
+//get one exercise by objectId
+router.get('/:id', (req, res) => {
+    Exercise.findById(req.params.id)
+        .then(result => res.json(result))
+        .catch(error => res.status(400).json('error with getting one exercise: ' + error))
+});
+
+//delete one exercise by objectId
+router.delete('/:id', (req, res) => {
+    Exercise.findByIdAndDelete(req.params.id)
+        .then(() => res.json('exercise deleted'))
+        .catch(error => res.status(400).json('error with deleting exercise: ' + error))
+});
+
+//put request to update one exercise
+router.put('/update/:id', (req, res) => {
+    Exercise.findById(req.params.id)
+        .then(result => {
+            result.duration = req.body.duration,
+                result.description = req.body.description
+
+            result.save()
+                .then(() => res.json('exercise updated'))
+                .catch(error => res.status(400).json('error with saving exercise: ' + error))
+        })
+        .catch(error => res.status(400).json('error with updating exercise: ' + error))
+})
+
 
 module.exports = router;
