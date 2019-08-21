@@ -1,5 +1,8 @@
 const express = require('express');
+//middleware to enable CORS
 const cors = require('cors');
+//use mongoose to connect with mongodb database
+const mongoose = require('mongoose');
 //use environment variable
 require('dotenv').config();
 
@@ -9,6 +12,16 @@ const port = process.env.PORT || 5000;
 app.use(cors());
 //allow to parse json => server will send and receive json
 app.use(express.json());
+
+//get database uri - where db is stored
+const uri = process.env.ATLAS_URI;
+mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true});
+const connection = mongoose.connection;
+connection.once('open', () => {
+    console.log('mongodb connection established');
+}).catch(error => {
+    console.log('db connection error', error);
+})
 
 
 app.listen(port, () => {
