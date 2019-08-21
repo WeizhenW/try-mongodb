@@ -6,6 +6,8 @@ const mongoose = require('mongoose');
 //use environment variable
 require('dotenv').config();
 
+const bodyParser = require('body-parser');
+
 const app = express();
 const port = process.env.PORT || 5000;
 //cors middleware
@@ -23,12 +25,16 @@ connection.once('open', () => {
     console.log('db connection error', error);
 })
 
+// Body parser middleware
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
 //require routes
 const userRouter = require('./routes/user.router');
-// const exerciseRouter = require('./routes/exercise.router');
+const exerciseRouter = require('./routes/exercise.router');
 
 app.use('/user', userRouter);
-// app.use('/exercise', exerciseRouter);
+app.use('/exercise', exerciseRouter);
 
 
 app.listen(port, () => {

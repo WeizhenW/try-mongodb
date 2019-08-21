@@ -13,8 +13,10 @@ router.get('/', (req, res) => {
 
 //post request to add a new user
 router.post('/add', (req, res) => {
-    const newUserName = req.body.username;
-    const newUser = new User({newUserName});//create a new instance of user
+    const username = req.body.username;
+    const newUser = new User({
+        username,
+    });//create a new instance of user
 
     newUser.save() //mongodb method to save the new instance into db
         .then(() => res.json('user added'))
