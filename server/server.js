@@ -33,8 +33,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const userRouter = require('./routes/user.router');
 const exerciseRouter = require('./routes/exercise.router');
 
-app.use('/user', userRouter);
-app.use('/exercise', exerciseRouter);
+app.use('/api/user', userRouter);
+app.use('/api/exercise', exerciseRouter);
 
 
 app.listen(port, () => {
